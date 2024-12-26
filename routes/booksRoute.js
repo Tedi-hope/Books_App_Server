@@ -4,6 +4,9 @@ import upload from '../middleware/multer.js';
 
 const router=express.Router();
 
+// Define the base URL for your server
+const BASE_URL = 'https://bookappserverassignment.vercel.app';
+
 //Route for Saving a new book
 router.post('/',upload.single('image'),async(request,response)=>{
   try{
@@ -20,9 +23,12 @@ router.post('/',upload.single('image'),async(request,response)=>{
     
     let imageUrl='';
     if(request.file){
-      imageUrl=`${request.protocol}://${request.get('host')}/uploads/${request.file.filename}`;
+      //imageUrl=`${request.protocol}://${request.get('host')}/uploads/${request.file.filename}`;
+      imageUrl=`${BASE_URL}/uploads/${request.file.filename}`;
     }
-
+    
+    console.log("imageurl", imageUrl);
+    
     const newBook={
         title:request.body.title,
         author:request.body.author,
